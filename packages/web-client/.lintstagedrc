@@ -1,7 +1,0 @@
-{
-    "*.{js}": [
-        "eslint --fix",
-        "stylelint",
-        "git add"
-    ]
-}
