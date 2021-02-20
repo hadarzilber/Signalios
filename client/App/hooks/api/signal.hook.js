@@ -8,11 +8,13 @@ export default () => {
   const getAllSignals = async () => get({ url: '/' });
   const getArchivedSignals = async () => get({ url: '/archived' });
   const getRemovedSignals = async () => get({ url: '/removed' });
+  const getAllFavorites = async () => get({ url: `/favorites` });
   const createSignal = async ({ name, template }) => post({ url: '/', body: { name, template } });
   const share = async ({ id, collaborators }) =>
     post({ url: `/${id}/share`, body: { collaborators } });
   const getSignal = async ({ id }) => get({ url: `/${id}` });
   const updateSignal = async ({ id, body }) => put({ url: `/${id}`, body });
+  const favoriteSignal = async ({ id }) => put({ url: `/${id}/favorite` });
   const archiveSignal = async ({ id }) => put({ url: `/${id}/archive` });
   const unArchiveSignal = async ({ id }) => put({ url: `/${id}/unarchive` });
   const removeSignal = async ({ id }) => put({ url: `/${id}/remove` });
@@ -22,6 +24,7 @@ export default () => {
 
   return {
     getAllSignals,
+    getAllFavorites,
     getArchivedSignals,
     getRemovedSignals,
     createSignal,
@@ -33,6 +36,7 @@ export default () => {
     deleteAllForever,
     share,
     archiveSignal,
+    favoriteSignal,
     unArchiveSignal
   };
 };

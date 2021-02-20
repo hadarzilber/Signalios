@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { Column, Row, Padded } from 'mui-flex-layout';
-
-import useSignalApi from '../../../hooks/api/Signal.hook';
+import Signal from './Signal'
 import { useAlert } from '../../../Providers/AlertProvider';
 import NoResults from '../../components/NoResults';
 import { useSignal } from '../../../Providers/SignalProvider';
-import Signal from './Signal';
 
 export default () => {
   const [Signals, setSignals] = useState([]);
-  const { getArchivedSignals } = useSignalApi();
   const { open } = useAlert();
-  const { handleRemove, handleUnarchive } = useSignal();
+  const { handleRemove, handleUnarchive ,GetAllFavorites} = useSignal();
 
   useEffect(() => {
     const fetchSignals = async () => {
       try {
-        const data = await getArchivedSignals();
+        const data = await GetAllFavorites();
 
         setSignals(data);
       } catch (error) {
@@ -42,15 +39,15 @@ export default () => {
 
   return (
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
-      {Signals.length ? (
+      {Signals?.length ? (
         <>
           <Row flexWrap={'wrap'} width={'100%'} height={'100%'} justifyContent={'center'}>
-            {Signals.map(Signal => (
+            {Signals.map(x => (
               <Signal
                 unarchive={UnarchiveSignal}
                 remove={removeSignal}
-                key={Signal._id}
-                Signal={Signal}
+                key={x._id}
+                signal={x}
               />
             ))}
           </Row>

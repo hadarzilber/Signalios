@@ -4,18 +4,21 @@ export default {
   seed: () => [
     {
       name: 'LTCUSD',
-      recommended: 75,
-      isActive: true
+      entryPrice: 1900.87,
+      takeProfit: 1940.76,
+      stopLoss: 1870.21
     },
     {
       name: 'BTC.1',
-      recommended: 80,
-      isActive: false
+      entryPrice: 45.87,
+      takeProfit: 2313.76,
+      stopLoss: 7.21
     },
     {
       name: 'BTCUSD',
-      recommended: 80,
-      isActive: true
+      entryPrice: 8,
+      takeProfit: 99.76,
+      stopLoss: 5654.21
     }
   ]
 };

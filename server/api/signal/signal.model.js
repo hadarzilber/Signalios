@@ -2,16 +2,31 @@ import { Schema } from 'mongoose';
 import createSeed from 'mongoose-dependent-seed';
 import seed from './signal.seed';
 
-const SignalSchema = new Schema({
+export const SignalSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    required: true
   },
-  recommended: {
-    type: Number
+  entryPrice: {
+    type: Number,
+    required: true
   },
-  isActive: {
-    type: Boolean
+  takeProfit: {
+    type: Number,
+    required: true
+  },
+  stopLoss: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: Date
   }
+});
+
+SignalSchema.pre('validation', function (next) {
+  this.date = new Date();
+  next();
 });
 
 export default createSeed('Signal', SignalSchema, seed);

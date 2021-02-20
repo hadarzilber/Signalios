@@ -4,6 +4,7 @@ import { single as emailAddress } from 'email-address';
 import passportLocalMongoose from 'passport-local-mongoose';
 import createSeed from 'mongoose-dependent-seed';
 import seed from './user.seed';
+import {SignalSchema} from '../signal/signal.model'
 
 const UserSchema = new Schema({
   name: {
@@ -34,6 +35,7 @@ const UserSchema = new Schema({
       type: Schema.Types.ObjectId
     }
   ],
+  favorites:[String],
   admin: Boolean
 });
 

@@ -71,9 +71,32 @@ export const update = async ({ user, params: { id }, body }) => {
   return updateList({ user, id, items, tasks });
 };
 
+export const favorite = async ({ user, params: { id } }) => {
+  const currentUser = await User.findById(user._id)
+
+  currentUser.favorites.includes(id) ? currentUser.favorites.remove(id) : currentUser.favorites.push(id)
+
+  const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
+
+  if (!result) {
+    throw createError(404);
+  }
+};
+
+export const getFavorites = async ({ user }) => {
+  const currentUser = await User.findById(user._id)
+
+  const result = await Signal.find({ _id: { $in: currentUser.favorites } });
+
+  if (!result) {
+    throw createError(404);
+  }
+
+  return result;
+};
+
 export const archive = async ({ user, params: { id } }) => updateList({ user, id, archived: true });
-export const unarchive = async ({ user, params: { id } }) =>
-  updateList({ user, id, archived: false });
+export const unarchive = async ({ user, params: { id } }) => updateList({ user, id, archived: false });
 export const remove = async ({ user, params: { id } }) => updateList({ user, id, removed: true });
 
 export const deleteForever = async ({ user, params: { id } }) => {

@@ -10,10 +10,12 @@ export default props => {
   const { open } = useAlert();
   const {
     getAllSignals,
+    getAllFavorites,
     createSignal,
     archiveSignal,
     unArchiveSignal,
     removeSignal,
+    favoriteSignal,
     share,
     updateSignal
   } = useSignalApi();
@@ -23,7 +25,6 @@ export default props => {
       try {
         const data = await getAllSignals();
 
-        console.log(`data ${data}`);
         setSignals(data);
       } catch (error) {
         open({ message: error });
@@ -34,6 +35,15 @@ export default props => {
   }, []);
 
   const removePredicate = item => !item.archived && !item.removed;
+  const GetAllFavorites = async () => {
+    try {
+      const data = await getAllFavorites();
+
+      return data;
+    } catch (error) {
+      open({ message: error });
+    }
+  }
 
   const create = async ({ name, template }) => {
     try {
@@ -66,6 +76,14 @@ export default props => {
       open({ message: 'Signal archived' });
 
       return data;
+    } catch (error) {
+      open({ message: error });
+    }
+  };
+
+  const handleFavorite = async ({ id }) => {
+    try {
+      const data = await favoriteSignal({ id });
     } catch (error) {
       open({ message: error });
     }
@@ -113,11 +131,13 @@ export default props => {
     <SignalContext.Provider
       value={{
         signals,
+        GetAllFavorites,
         create,
         handleRemove,
         handleShare,
         handleArchive,
         handleUnarchive,
+        handleFavorite,
         handleUpdate
       }}
       {...props}
