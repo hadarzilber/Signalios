@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Column } from 'mui-flex-layout';
 import styled from 'styled-components';
-import { TextField, Typography } from '@material-ui/core';
-
+import { Typography } from '@material-ui/core';
 import { useSignal } from '../../../Providers/SignalProvider';
 import ListDialog from '../../List';
 import List from './List';
@@ -25,10 +24,6 @@ export default ({ filter }) => {
     setFilteredSignals(signals)
   }, [signals])
 
-  const openList = ({ id }) => {
-    setOpened(true);
-    setOpenedId(id);
-  };
 
   const closeList = () => {
     setOpened(false);

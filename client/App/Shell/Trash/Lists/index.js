@@ -84,12 +84,12 @@ export default () => {
       <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
         {Signals.length ? (
           <Row flexWrap={'wrap'} width={'100%'} height={'100%'}>
-            {Signals.map(Signal => (
+            {Signals.map(signal => (
               <Signal
                 restore={handleRestore}
                 deleteForever={handleDelete}
                 key={Signal._id}
-                Signal={Signal}
+                signal={signal}
               />
             ))}
           </Row>

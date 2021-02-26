@@ -10,8 +10,7 @@ export default () => {
   const getRemovedSignals = async () => get({ url: '/removed' });
   const getAllFavorites = async () => get({ url: `/favorites` });
   const createSignal = async ({ name, template }) => post({ url: '/', body: { name, template } });
-  const share = async ({ id, collaborators }) =>
-    post({ url: `/${id}/share`, body: { collaborators } });
+  const share = async ({ id, collaborators }) => post({ url: `/${id}/share`, body: { collaborators } });
   const getSignal = async ({ id }) => get({ url: `/${id}` });
   const updateSignal = async ({ id, body }) => put({ url: `/${id}`, body });
   const favoriteSignal = async ({ id }) => put({ url: `/${id}/favorite` });

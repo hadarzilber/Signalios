@@ -6,10 +6,30 @@ import Signal from './signal.model';
 // const isOwner = ({ user, list }) => list.user.equals(user._id);
 // const isCollaborator = ({ user, list }) => list.collaborators.find(x => x._id.equals(user._id));
 
-export const index = ({ user }) => Signal.find({});
-export const archived = () =>
-  Signal.find({ archived: true, removed: false }).select('-tasks -items');
-export const removed = () => Signal.find({ removed: true }).select('-tasks -items');
+export const index = async ({ user }) => {
+  const currentUser = await User.findById(user._id)
+
+  const result = await Signal.find({ _id: { $not: { $in: currentUser.removed.concat(currentUser.deleted) } } });
+
+  if (!result) {
+    throw createError(404);
+  }
+
+  return result;
+};
+export const archived = () => Signal.find({ archived: true, removed: false }).select('-tasks -items');
+
+export const getRemoved = async ({ user }) => {
+  const currentUser = await User.findById(user._id)
+
+  const result = await Signal.find({ _id: { $in: currentUser.removed } });
+
+  if (!result) {
+    throw createError(404);
+  }
+
+  return result;
+};
 
 // export const show = async ({ user, params: { id } }) => {
 //   const list = await Signal.findById(id)
@@ -83,6 +103,18 @@ export const favorite = async ({ user, params: { id } }) => {
   }
 };
 
+export const trash = async ({ user, params: { id } }) => {
+  const currentUser = await User.findById(user._id)
+
+  currentUser.removed.includes(id) ? currentUser.removed.remove(id) : currentUser.removed.push(id)
+
+  const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
+
+  if (!result) {
+    throw createError(404);
+  }
+};
+
 export const getFavorites = async ({ user }) => {
   const currentUser = await User.findById(user._id)
 
@@ -97,19 +129,16 @@ export const getFavorites = async ({ user }) => {
 
 export const archive = async ({ user, params: { id } }) => updateList({ user, id, archived: true });
 export const unarchive = async ({ user, params: { id } }) => updateList({ user, id, archived: false });
-export const remove = async ({ user, params: { id } }) => updateList({ user, id, removed: true });
 
 export const deleteForever = async ({ user, params: { id } }) => {
-  const list = await Signal.findById(id).populate('user');
+  const currentUser = await User.findById(user._id)
 
-  // if (!list || (!isOwner({ user, list }) && !isCollaborator({ user, list }))) {
-  //   throw createError(400);
-  // }
+  currentUser.deleted.push(id)
 
-  const result = await Signal.findByIdAndDelete(list._id);
+  const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
 
   if (!result) {
-    throw createError(400);
+    throw createError(404);
   }
 };
 

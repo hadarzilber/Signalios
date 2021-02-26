@@ -36,6 +36,8 @@ const UserSchema = new Schema({
     }
   ],
   favorites:[String],
+  removed:[String],
+  deleted:[String],
   admin: Boolean
 });
 

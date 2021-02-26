@@ -84,6 +84,8 @@ export default props => {
   const handleFavorite = async ({ id }) => {
     try {
       const data = await favoriteSignal({ id });
+      open({ message: 'Signal favorite' });
+      
     } catch (error) {
       open({ message: error });
     }
