@@ -2,6 +2,8 @@ import React from 'react';
 import Home from './Home';
 import Trash from './Trash';
 import Archive from './Archive';
+import Resources from './Resources';
+import Profile from './Profile';
 import Shell from '.';
 
 const base = {
@@ -27,6 +29,12 @@ let routes = [
     name: 'archive',
     exact: true,
     component: Archive
+  },
+  {
+    path: '/resources',
+    name: 'resources',
+    exact: true,
+    component: Resources
   }
 ];
 

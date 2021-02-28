@@ -44,6 +44,10 @@ export default () => {
     push('/trash');
   };
 
+  const handleResources = () => {
+    push('/resources');
+  };
+
   return (
     <Navbar elevation={3}>
       <Row width={'100%'} height={'100%'} alignItems={'center'}>
@@ -71,6 +75,13 @@ export default () => {
             onClick={handleTrash}
           >
             {'Trash'}
+          </RouteButton>
+          <RouteButton
+            active={useRouteMatch({ path: '/resources' })}
+            color={'secondary'}
+            onClick={handleResources}
+          >
+            {'Resources'}
           </RouteButton>
         </Row>
         <Row width={'70%'} />
