@@ -18,11 +18,11 @@ const Bold = styled(Typography)`
 
 export default () => {
   const resources = [
-    { source: 'telegram', name: 'myChannel', rate: '2.3' },
-    { source: 'telegram', name: 'myChannel', rate: '2.3' },
-    { source: 'telegram', name: 'myChannel', rate: '2.3' },
-    { source: 'facebook', name: 'myGroup', rate: '6.72' },
-    { source: 'facebook', name: 'myGroup', rate: '6.72' }
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'facebook', name: 'myGroup', rate: 6.72 },
+    { source: 'facebook', name: 'myGroup', rate: 6.72 }
   ];
 
   return (
