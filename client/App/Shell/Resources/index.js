@@ -11,19 +11,18 @@ import {
   TableRow,
   Paper
 } from '@material-ui/core';
+import { useResource } from '../../Providers/ResourceProvider';
 
 const Bold = styled(Typography)`
   font-weight: 600;
 `;
 
 export default () => {
-  const resources = [
-    { source: 'telegram', name: 'myChannel', rate: 2.3 },
-    { source: 'telegram', name: 'myChannel', rate: 2.3 },
-    { source: 'telegram', name: 'myChannel', rate: 2.3 },
-    { source: 'facebook', name: 'myGroup', rate: 6.72 },
-    { source: 'facebook', name: 'myGroup', rate: 6.72 }
-  ];
+  console.log('useresource() ->', useResource());
+  console.log('useresource ->', useResource);
+  console.log('useresource.resources ->', useResource.resources);
+  // const { resources } = useResource();
+  const resources = [];
 
   return (
     <Column height={'100%'} width={'90%'} alignItems={'center'} style={{ margin: 'auto' }}>

@@ -32,4 +32,12 @@ export const notificationClient = {
   authRequired: true
 };
 
-export default [signalClient, userClient, authClient, notificationClient];
+export const resourceClient = {
+  instance: axios.create({
+    baseURL: `/api/resource`,
+    responseType: 'json'
+  }),
+  authRequired: true
+};
+
+export default [signalClient, userClient, authClient, notificationClient, resourceClient];
