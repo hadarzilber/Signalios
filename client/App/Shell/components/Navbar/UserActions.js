@@ -48,6 +48,7 @@ export default () => {
   const { logout } = useAuthApi();
   const { getAllNotifications, viewNotifications } = useNotificationApi();
   const { open } = useAlert();
+  const { push } = useHistory();
 
   const handleLogout = () => {
     logout();
@@ -95,6 +96,10 @@ export default () => {
     setUserMenuAnchor(null);
   };
 
+  const handleProfile = () => {
+    push('/profile');
+  };
+
   const newNotifications = () => notifications.some(x => !x.viewed);
 
   return (
@@ -120,7 +125,10 @@ export default () => {
         onClose={handleCloseUserMenu}
       >
         <MenuItem>
-          <ListItemText primary={<Typography variant={'body1'}>{'Edit Profile'}</Typography>} />
+          <ListItemText
+            onClick={handleProfile}
+            primary={<Typography variant={'body1'}>{'Edit Profile'}</Typography>}
+          />
         </MenuItem>
 
         <MenuItem onClick={handleLogout}>

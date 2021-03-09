@@ -35,6 +35,12 @@ let routes = [
     name: 'resources',
     exact: true,
     component: Resources
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    exact: true,
+    component: Profile
   }
 ];
 
