@@ -19,7 +19,13 @@ const Bold = styled(Typography)`
 
 export default () => {
   // const { resources } = useResource();
-  const resources = [];
+  const resources = [
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'telegram', name: 'myChannel', rate: 2.3 },
+    { source: 'facebook', name: 'myGroup', rate: 6.72 },
+    { source: 'facebook', name: 'myGroup', rate: 6.72 }
+  ];
 
   return (
     <Column height={'100%'} width={'90%'} alignItems={'center'} style={{ margin: 'auto' }}>
