@@ -32,9 +32,6 @@ export default () => {
 
   return (
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
-      <Bold color={'textSecondary'} variant={'caption'}>
-        {'Suggested Templates'}
-      </Bold>
       {/* <Row flexWrap={'wrap'} width={'100%'} height={'100%'} justifyContent={'center'}>
         {suggestedSignals.map(signal => (
           <Signal key={template._id} signal={signal} />

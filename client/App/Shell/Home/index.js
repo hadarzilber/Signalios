@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Lists from './Lists';
 import Suggested from './Suggested';
 
-
 const BorderlessSearchBar = styled(TextField)`
   &&& {
     fieldset {
@@ -20,6 +19,8 @@ const BorderlessSearchBar = styled(TextField)`
 
 const SearchBar = styled(Row)`
   border-radius: 5px;
+  position: fixed;
+  margin-bottom: 550px;
 `;
 
 const SearchIcon = styled(Search)`
@@ -37,7 +38,7 @@ const SearchCard = styled(Card)`
 `;
 
 export default () => {
-  const [filter, setfilter] = useState('')
+  const [filter, setfilter] = useState('');
 
   return (
     <Row width={'100%'} height={'100%'}>
@@ -67,5 +68,5 @@ export default () => {
         </Column>
       </Scrollbars>
     </Row>
-  )
+  );
 };

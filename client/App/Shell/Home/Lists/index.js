@@ -14,16 +14,19 @@ export default ({ filter }) => {
   const { signals } = useSignal();
   const [opened, setOpened] = useState(false);
   const [openedId, setOpenedId] = useState(null);
-  const [filteredSignals, setFilteredSignals] = useState([])
+  const [filteredSignals, setFilteredSignals] = useState([]);
 
   useEffect(() => {
-    filter.length !== 0 ? setFilteredSignals(signals.filter(x => x.name.toLowerCase().startsWith(filter.toLowerCase()))) : setFilteredSignals(signals)
-  }, [filter])
+    filter.length !== 0
+      ? setFilteredSignals(
+          signals.filter(x => x.name.toLowerCase().startsWith(filter.toLowerCase()))
+        )
+      : setFilteredSignals(signals);
+  }, [filter]);
 
   useEffect(() => {
-    setFilteredSignals(signals)
-  }, [signals])
-
+    setFilteredSignals(signals);
+  }, [signals]);
 
   const closeList = () => {
     setOpened(false);
@@ -33,9 +36,12 @@ export default ({ filter }) => {
   return (
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
       {signals.length ? (
-        <Bold color={'textSecondary'} variant={'caption'}>
-          {'My Signals'}
-        </Bold>
+        <div>
+          <br></br>
+          <Bold color={'textSecondary'} variant={'caption'}>
+            {'My Signals'}
+          </Bold>
+        </div>
       ) : null}
       <Row
         height={'100%'}
