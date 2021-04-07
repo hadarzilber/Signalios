@@ -37,7 +37,6 @@ export default ({ filter }) => {
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
       {signals.length ? (
         <div>
-          <br></br>
           <Bold color={'textSecondary'} variant={'caption'}>
             {'My Signals'}
           </Bold>
