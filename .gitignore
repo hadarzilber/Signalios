@@ -3,3 +3,4 @@ node_modules
 dist
 *.log
 .env
+client/App/Shell/Home/Lists/List.js

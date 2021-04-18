@@ -5,6 +5,7 @@ import { Typography, Card, Chip, LinearProgress, IconButton } from '@material-ui
 import Moment from 'react-moment';
 import { Delete, Star } from '@material-ui/icons';
 import { useSignal } from '../../../Providers/SignalProvider';
+import { useChannel } from '../../../Providers/ChannelProvider';
 
 const ListName = styled(Typography)`
   font-weight: bold;
@@ -29,6 +30,7 @@ export default ({
   }
 }) => {
   const { handleFavorite, handleRemove } = useSignal();
+  const { channels } = useChannel();
 
   const Template = styled(Card)`
     width: 100%;
@@ -45,6 +47,8 @@ export default ({
     await handleRemove({ id });
   };
 
+  const getChannelRate = channelName => channels.find(x => x.name == channelName).rate;
+
   return (
     <Row width={'22%'} m={2}>
       <Column width={'100%'} height={'100%'}>
@@ -60,6 +64,7 @@ export default ({
               <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
               <span> take profit:{takeProfit}$ </span>
               <span> channel:{channelName} </span>
+              <span> {getChannelRate(channelName)}% rate</span>
               <Row>
                 <IconButton>
                   <Star onClick={handleFavoriteClick} />

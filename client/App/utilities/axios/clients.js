@@ -40,6 +40,14 @@ export const resourceClient = {
   authRequired: true
 };
 
+export const channelClient = {
+  instance: axios.create({
+    baseURL: `/api/channel`,
+    responseType: 'json'
+  }),
+  //authRequired: true
+};
+
 export const regexClient = {
   instance: axios.create({
     baseURL: `/api/regex`,
@@ -54,5 +62,6 @@ export default [
   authClient,
   notificationClient,
   resourceClient,
-  regexClient
+  regexClient,
+  channelClient
 ];

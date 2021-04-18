@@ -43,7 +43,7 @@ export default props => {
     } catch (error) {
       open({ message: error });
     }
-  }
+  };
 
   const create = async ({ name, template }) => {
     try {
@@ -85,7 +85,6 @@ export default props => {
     try {
       const data = await favoriteSignal({ id });
       open({ message: 'Signal favorite' });
-      
     } catch (error) {
       open({ message: error });
     }

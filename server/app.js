@@ -3,7 +3,6 @@ import logger from 'env-bunyan';
 import connect from './config/mongoose';
 import socketConfig from './config/socket';
 import create from './config/express';
-import { seed } from 'mongoose-dependent-seed'
 
 (async () => {
   const app = create();

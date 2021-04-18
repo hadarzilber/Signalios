@@ -9,14 +9,12 @@ const SignalName = styled(Typography)`
 `;
 
 const Template = styled(Card)`
-width: 100%;
-height: 180px;
-border-radius: 8px;
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
 `;
 
 export default ({ signal, deleteForever, restore }) => {
-
-
   return (
     <Row width={'22%'} m={2}>
       <Column width={'100%'} height={'100%'}>

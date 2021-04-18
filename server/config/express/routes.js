@@ -5,6 +5,7 @@ import signalRoute from '../../api/signal';
 import notificationRoute from '../../api/notification';
 import authRoute from '../../api/auth';
 import regexRoute from '../../api/regex'
+import channelRoute from '../../api/channel';
 
 export default app => {
   app.use('/api/users', userRoute);
@@ -12,6 +13,7 @@ export default app => {
   app.use('/api/notifications', notificationRoute);
   app.use('/api/regex', regexRoute);
   app.use('/auth', authRoute);
+  app.use('/api/channel', channelRoute);
 
   // All undefined api routes should return a 404
   app.route('/:url(api|auth)/*').get((req, res, next) => {
