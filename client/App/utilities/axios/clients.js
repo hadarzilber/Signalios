@@ -40,4 +40,12 @@ export const resourceClient = {
   authRequired: true
 };
 
-export default [signalClient, userClient, authClient, notificationClient, resourceClient];
+export const regexClient = {
+  instance: axios.create({
+    baseURL: `/api/regex`,
+    responseType: 'json'
+  }),
+  authRequired: true
+};
+
+export default [signalClient, userClient, authClient, notificationClient, resourceClient,regexClient];

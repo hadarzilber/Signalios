@@ -4,6 +4,7 @@ import Trash from './Trash';
 import Archive from './Archive';
 import Resources from './Resources';
 import Profile from './Profile';
+import Regex from './Regex'
 import Shell from '.';
 
 const base = {
@@ -35,6 +36,12 @@ let routes = [
     name: 'resources',
     exact: true,
     component: Resources
+  },
+  {
+    path: '/regex',
+    name: 'regex',
+    exact: true,
+    component: Regex
   }
 ];
 
