@@ -6,7 +6,7 @@ export const update = {
   type: joi.number().required()
 };
 
-// export const create = {
-//   ...update,
-//   password: joi.string()
-// };
+export const create = {
+  ...update,
+  password: joi.string()
+};

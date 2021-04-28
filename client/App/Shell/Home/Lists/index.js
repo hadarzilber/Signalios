@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { useSignal } from '../../../Providers/SignalProvider';
 import ListDialog from '../../List';
 import List from './List';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const Bold = styled(Typography)`
   font-weight: 600;
@@ -49,7 +50,7 @@ export default ({ filter }) => {
         justifyContent={'center'}
         alignItems={'flex-start'}
       >
-        {filteredSignals.map(list => (
+        {filteredSignals.reverse().map(list => (
           <List key={list._id} list={list} />
         ))}
       </Row>

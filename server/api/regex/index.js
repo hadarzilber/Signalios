@@ -7,6 +7,6 @@ const router = new AsyncRouter();
 
 router.param('id', objectId);
 
-router.post('/', authenticate(), controller.addNew);
+router.post('/', controller.addNew);
 
 export default router;

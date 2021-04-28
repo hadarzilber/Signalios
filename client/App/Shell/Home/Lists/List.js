@@ -16,7 +16,17 @@ const BiggerLinearProgress = styled(LinearProgress)`
 
 export default ({
   handleOpen,
-  list: { _id: id, name, progress, type, lastEdited, entryPrice, stopLoss, takeProfit, channelName }
+  list: {
+    _id: id,
+    pairName,
+    progress,
+    type,
+    lastEdited,
+    entryPrice,
+    stopLoss,
+    takeProfit,
+    channelName
+  }
 }) => {
   const { handleFavorite, handleRemove } = useSignal();
 
@@ -42,12 +52,12 @@ export default ({
           {progress > -1 && <BiggerLinearProgress value={progress} variant={'determinate'} />}
           <Column p={2} height={'100%'} justifyContent={'space-between'} alignItems={'center'}>
             <Column justifyContent={'center'} alignItems={'center'}>
-              <ListName variant={'h5'}>{name}</ListName>
+              <ListName variant={'h5'}>{pairName}</ListName>
               <Typography variant={'caption'} color={'textSecondary'}>
                 <span> {entryPrice}$ </span>
               </Typography>
 
-              <span> stop loss:{stopLoss}$ </span>
+              <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
               <span> take profit:{takeProfit}$ </span>
               <span> channel:{channelName} </span>
               <Row>

@@ -16,7 +16,7 @@ export const SignalSchema = new Schema({
     required: true
   },
   stopLoss: {
-    type: Number,
+    type: String,
     required: true
   },
   date: {
@@ -24,7 +24,7 @@ export const SignalSchema = new Schema({
   }
 });
 
-SignalSchema.pre('validation', function (next) {
+SignalSchema.pre('validation', function(next) {
   this.date = new Date();
   next();
 });
