@@ -4,7 +4,7 @@ import { single as emailAddress } from 'email-address';
 import passportLocalMongoose from 'passport-local-mongoose';
 import createSeed from 'mongoose-dependent-seed';
 import seed from './user.seed';
-import {SignalSchema} from '../signal/signal.model'
+import { SignalSchema } from '../signal/signal.model'
 
 const UserSchema = new Schema({
   name: {
@@ -35,9 +35,9 @@ const UserSchema = new Schema({
       type: Schema.Types.ObjectId
     }
   ],
-  favorites:[String],
-  removed:[String],
-  deleted:[String],
+  favorites: [String],
+  removed: [String],
+  deleted: [String],
   admin: Boolean
 });
 
@@ -45,20 +45,24 @@ const UserSchema = new Schema({
  * Virtuals
  */
 
-UserSchema.virtual('name.full').get(function() {
+UserSchema.virtual('name.full').get(function () {
   return `${this.name.first} ${this.name.last}`;
 });
 
-UserSchema.virtual('password').set(function(password) {
+UserSchema.virtual('password').set(function (password) {
   this._password = password;
 });
 
 /**
  * Pre-save hook
  */
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   if (!this._password) {
     return next();
+  }
+
+  if(!this.admin) {
+    this.admin = false;
   }
 
   this.setPassword(this._password).then(() => next());
