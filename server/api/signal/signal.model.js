@@ -21,10 +21,16 @@ export const SignalSchema = new Schema({
   },
   date: {
     type: Date
+  },
+  pairName: {
+    type: String
+  },
+  channelName: {
+    type: String
   }
 });
 
-SignalSchema.pre('validation', function(next) {
+SignalSchema.pre('validation', function (next) {
   this.date = new Date();
   next();
 });

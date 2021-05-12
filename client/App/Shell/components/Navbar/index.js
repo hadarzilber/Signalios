@@ -5,6 +5,7 @@ import { Row } from 'mui-flex-layout';
 import styled from 'styled-components';
 
 import UserActions from './UserActions';
+import { useAuth } from '../../../Providers/AuthProvider';
 
 const Logo = styled.img`
   margin-right: 15px;
@@ -29,6 +30,7 @@ const Navbar = styled(Paper)`
 
 export default () => {
   const { push } = useHistory();
+  const { user } = useAuth();
 
   const gotoHome = () => push('/home');
 
@@ -47,6 +49,10 @@ export default () => {
   const handleResources = () => {
     push('/resources');
   };
+  const handleRegex = () => {
+    push('/regex');
+  };
+
 
   return (
     <Navbar elevation={3}>
@@ -83,6 +89,15 @@ export default () => {
           >
             {'Resources'}
           </RouteButton>
+          {user.admin &&
+            <RouteButton
+              active={useRouteMatch({ path: '/regex' })}
+              color={'secondary'}
+              onClick={handleRegex}
+            >
+              {'Regex'}
+            </RouteButton>
+          }
         </Row>
         <Row width={'70%'} />
         <Row justifyContent={'center'} alignItems={'center'}>

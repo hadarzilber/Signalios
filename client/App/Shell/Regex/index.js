@@ -1,11 +1,19 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Column, Row } from 'mui-flex-layout';
 import { useFormik } from 'formik';
 import { Button, TextField } from '@material-ui/core';
 import useRegex from '../../hooks/api/regex.hook'
+import { useAuth } from '../../Providers/AuthProvider';
+import { useHistory } from 'react-router';
 
 export default () => {
     const { addNewRegex } = useRegex();
+    const {user} = useAuth()
+    const {push} = useHistory()
+   
+    useEffect(() => {
+        !user?.admin && push('/')
+    }, [])
 
     const formik = useFormik({
         initialValues: {
