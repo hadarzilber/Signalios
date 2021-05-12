@@ -10,7 +10,7 @@ const SignalName = styled(Typography)`
 
 const Template = styled(Card)`
   width: 100%;
-  height: 180px;
+  height: 220px;
   border-radius: 8px;
 `;
 

@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'mui-flex-layout';
 import { Typography, Card, Chip, LinearProgress, IconButton } from '@material-ui/core';
 import Moment from 'react-moment';
 import { Delete, Star } from '@material-ui/icons';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useSignal } from '../../../Providers/SignalProvider';
 import { useChannel } from '../../../Providers/ChannelProvider';
 
@@ -11,30 +14,24 @@ const ListName = styled(Typography)`
   font-weight: bold;
 `;
 
-const BiggerLinearProgress = styled(LinearProgress)`
-  height: 8px;
-`;
-
 export default ({
-  handleOpen,
-  list: {
-    _id: id,
-    pairName,
-    progress,
-    type,
-    lastEdited,
-    entryPrice,
-    stopLoss,
-    takeProfit,
-    channelName
-  }
+  list: { _id: id, pairName, entryPrice, stopLoss, takeProfit, channelName },
+  isUp
 }) => {
+  const ArrowDownIcon = styled(ArrowDownwardIcon)`
+    color: ${isUp ? 'red' : 'grey'};
+  `;
+
+  const ArrowUpIcon = styled(ArrowUpwardIcon)`
+    color: ${isUp ? 'grey' : 'green'};
+  `;
+
   const { handleFavorite, handleRemove } = useSignal();
   const { channels } = useChannel();
 
   const Template = styled(Card)`
     width: 100%;
-    height: 180px;
+    height: 200px;
     border-radius: 8px;
     cursor: pointer;
   `;
@@ -52,8 +49,7 @@ export default ({
   return (
     <Row width={'22%'} m={2}>
       <Column width={'100%'} height={'100%'}>
-        <Template variant={'outlined'} onClick={() => {}}>
-          {progress > -1 && <BiggerLinearProgress value={progress} variant={'determinate'} />}
+        <Template variant={'outlined'}>
           <Column p={2} height={'100%'} justifyContent={'space-between'} alignItems={'center'}>
             <Column justifyContent={'center'} alignItems={'center'}>
               <ListName variant={'h5'}>{pairName}</ListName>
@@ -72,6 +68,14 @@ export default ({
                 <IconButton>
                   <Delete onClick={handleRemoveClick} />
                 </IconButton>
+                {pairName === 'ETH/USDT' ? (
+                  <>
+                    <ArrowUpIcon />
+                    <ArrowDownIcon />
+                  </>
+                ) : (
+                  ''
+                )}
               </Row>
             </Column>
           </Column>

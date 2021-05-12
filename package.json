@@ -24,6 +24,11 @@
   "repository": "https://github.com/hadarzilber/Signalios.git",
   "author": "Shir Magen <shirmagen095@gmail.com>",
   "license": "MIT",
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
@@ -90,6 +95,7 @@
     "express-jwt": "^5.3.1",
     "express-mongoose-errors": "^0.2.0",
     "express-param-objectid": "^1.0.0",
+    "fstream": "^1.0.12",
     "helmet": "^3.21.1",
     "history": "^4.10.1",
     "http-errors": "^1.7.3",
@@ -120,6 +126,7 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-sortablejs": "^2.0.9",
+    "read-excel-file": "^5.1.0",
     "socket.io": "^2.3.0",
     "socketio-jwt": "^4.5.0",
     "styled-components": "^5.0.0",

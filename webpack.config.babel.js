@@ -9,6 +9,7 @@ export default env => {
   const mode = env === 'production' ? 'production' : 'development';
 
   return {
+    node: { fs: 'empty' },
     mode,
     plugins: [
       new HtmlWebpackPlugin({

@@ -2,21 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'mui-flex-layout';
 import { Typography, Card, IconButton } from '@material-ui/core';
-import { Star,Delete } from '@material-ui/icons'
-
+import { Star, Delete } from '@material-ui/icons';
 
 const SignalName = styled(Typography)`
   font-weight: bold;
 `;
 
 const Template = styled(Card)`
-width: 100%;
-height: 180px;
-border-radius: 8px;
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
 `;
 
-export default ({ signal, handleFavoriteClick,handleRemoveItem }) => {
-
+export default ({ signal, handleFavoriteClick, handleRemoveItem }) => {
   return (
     <Row width={'22%'} m={2}>
       <Column width={'100%'} height={'100%'}>

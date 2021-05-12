@@ -3,6 +3,8 @@ import { Column, Row } from 'mui-flex-layout';
 import { TextField, Card } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
+import createError from 'http-errors';
+import readXlsxFile from 'read-excel-file';
 
 import styled from 'styled-components';
 
@@ -36,6 +38,8 @@ const SearchCard = styled(Card)`
   margin-top: 25px;
   margin-bottom: 15px;
 `;
+
+const show = () => readXlsxFile(`../../../ETHUSDT.xlsx`);
 
 export default () => {
   const [filter, setfilter] = useState('');
