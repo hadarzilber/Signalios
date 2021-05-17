@@ -14,7 +14,7 @@ export default props => {
     const fetchChannels = async () => {
       try {
         const data = await getAllChannels();
-
+        
         setChannels(data);
       } catch (error) {
         open({ message: error });

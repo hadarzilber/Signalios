@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Column, Row } from 'mui-flex-layout';
-import { TextField, Card } from '@material-ui/core';
+import { TextField, Card, Button, Modal } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 import createError from 'http-errors';
 import readXlsxFile from 'read-excel-file';
-
 import styled from 'styled-components';
-
 import Lists from './Lists';
 import Suggested from './Suggested';
+import ChannelsModal from './ChannelsModal'
 
 const BorderlessSearchBar = styled(TextField)`
   &&& {
@@ -39,10 +38,16 @@ const SearchCard = styled(Card)`
   margin-bottom: 15px;
 `;
 
-const show = () => readXlsxFile(`../../../ETHUSDT.xlsx`);
+const ModalContent = styled(Column)`
+  width: 60%;
+  height: 60%;
+  background-color: white !important;
+`;
 
 export default () => {
   const [filter, setfilter] = useState('');
+  const [open, setOpen] = useState(false)
+  const [channelsToDisplay, setChannelsToDisplay] = useState([])  
 
   return (
     <Row width={'100%'} height={'100%'}>
@@ -66,11 +71,16 @@ export default () => {
           <Row width={'100%'}>
             <Suggested />
           </Row>
+          <Row width={'100%'}>
+            <Button size={'large'} onClick={() => setOpen(!open)}>{'ערוצים'}</Button>
+          </Row>
           <Row width={'80%'} height={'100%'}>
             <Lists filter={filter} />
           </Row>
         </Column>
       </Scrollbars>
+      {/* <ChannelsModal open={open} setOpen={setOpen} setChannelsToDisplay={setChannelsToDisplay}>
+      </ChannelsModal> */}
     </Row>
   );
 };
