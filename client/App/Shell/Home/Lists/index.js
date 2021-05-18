@@ -14,31 +14,36 @@ const Bold = styled(Typography)`
 export default ({ filter }) => {
   const { signals } = useSignal();
   const [opened, setOpened] = useState(false);
-  const [openedId, setOpenedId] = useState(null);
+  const [openedSignal, setOpenedSignal] = useState(null);
   const [filteredSignals, setFilteredSignals] = useState([]);
+  const openList = ({ signal }) => {
+    console.log(`OPENED ${signal ? signal.pairName : 'not yet!'}`);
+    setOpened(true);
+    setOpenedSignal(signal);
+  };
+
+  const closeList = () => {
+    setOpened(false);
+    setOpenedSignal(null);
+  };
 
   useEffect(() => {
     filter.length !== 0
       ? setFilteredSignals(
-          signals.filter(x => x.pairName.toLowerCase().startsWith(filter.toLowerCase()))
+          signals.filter(x => x.pairName.toLowerCase().startsWith(filter.toLowerCase())).reverse()
         )
-      : setFilteredSignals(signals);
+      : setFilteredSignals(signals.reverse());
   }, [filter]);
 
   useEffect(() => {
     setFilteredSignals(signals);
   }, [signals]);
 
-  const closeList = () => {
-    setOpened(false);
-    setOpenedId(null);
-  };
-
   const [isUp, setIsUp] = useState(false);
 
-  setInterval(() => {
-    setIsUp(Math.random() < 0.5);
-  }, 10000);
+  // setInterval(() => {
+  //   setIsUp(Math.random() < 0.5);
+  // }, 10000);
 
   return (
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
@@ -56,11 +61,20 @@ export default ({ filter }) => {
         justifyContent={'center'}
         alignItems={'flex-start'}
       >
-        {filteredSignals.reverse().map(list => (
-          <List key={list._id} list={list} isUp={isUp} />
+        {filteredSignals.map(signal => (
+          <List key={signal._id} list={signal} handleOpen={() => openList({ signal })} />
         ))}
       </Row>
-      {opened && <ListDialog handleClose={closeList} opened={opened} id={openedId} />}
+      {opened && openedSignal && (
+        <ListDialog
+          handleClose={closeList}
+          opened={opened}
+          getHistoryParams={{
+            pairName: openedSignal.pairName,
+            channelName: openedSignal.channelName
+          }}
+        />
+      )}
     </Column>
   );
 };

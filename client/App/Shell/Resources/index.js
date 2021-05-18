@@ -18,9 +18,6 @@ const Bold = styled(Typography)`
 `;
 
 export default () => {
-  console.log('useresource() ->', useResource());
-  console.log('useresource ->', useResource);
-  console.log('useresource.resources ->', useResource.resources);
   // const { resources } = useResource();
   const resources = [];
 

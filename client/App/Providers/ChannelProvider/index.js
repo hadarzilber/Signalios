@@ -16,7 +16,6 @@ export default props => {
         const data = await getAllChannels();
 
         setChannels(data);
-        console.log(`naaaaaaaaaaaaaaa`);
       } catch (error) {
         open({ message: error });
       }

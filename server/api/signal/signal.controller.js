@@ -7,9 +7,11 @@ import Signal from './signal.model';
 // const isCollaborator = ({ user, list }) => list.collaborators.find(x => x._id.equals(user._id));
 
 export const index = async ({ user }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
-  const result = await Signal.find({ _id: { $not: { $in: currentUser.removed.concat(currentUser.deleted) } } });
+  const result = await Signal.find({
+    _id: { $not: { $in: currentUser.removed.concat(currentUser.deleted) } }
+  });
 
   if (!result) {
     throw createError(404);
@@ -17,10 +19,11 @@ export const index = async ({ user }) => {
 
   return result;
 };
-export const archived = () => Signal.find({ archived: true, removed: false }).select('-tasks -items');
+export const archived = () =>
+  Signal.find({ archived: true, removed: false }).select('-tasks -items');
 
 export const getRemoved = async ({ user }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
   const result = await Signal.find({ _id: { $in: currentUser.removed } });
 
@@ -31,17 +34,25 @@ export const getRemoved = async ({ user }) => {
   return result;
 };
 
-// export const show = async ({ user, params: { id } }) => {
-//   const list = await Signal.findById(id)
-//     .populate({ path: 'collaborators', select: 'email name _id' })
-//     .populate('user');
+export const getPairNameHistory = async ({ user, body }, res) => {
+  console.log(`got to server with ${body.pairName} ${body.channelName}`);
+  const allSignalsWithPairName = await Signal.find({ pairName: body.pairName });
 
-//   if (!list || (!isOwner({ list, user }) && !isCollaborator({ list, user }))) {
-//     throw createError(404);
-//   }
+  console.log(`allSignalsWithPairName ${[allSignalsWithPairName]}`);
+  const result = allSignalsWithPairName.filter(x => x.channelName === body.channelName);
 
-//   return list;
-// };
+  if (!result) {
+    throw createError(404);
+  }
+
+  return result;
+};
+
+export const show = async ({ params: { id } }) => {
+  const list = await Signal.findById(id);
+
+  return list;
+};
 
 export const create = async ({ user, body }, res) => {
   const { name, template } = body;
@@ -92,9 +103,11 @@ export const update = async ({ user, params: { id }, body }) => {
 };
 
 export const favorite = async ({ user, params: { id } }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
-  currentUser.favorites.includes(id) ? currentUser.favorites.remove(id) : currentUser.favorites.push(id)
+  currentUser.favorites.includes(id)
+    ? currentUser.favorites.remove(id)
+    : currentUser.favorites.push(id);
 
   const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
 
@@ -104,9 +117,9 @@ export const favorite = async ({ user, params: { id } }) => {
 };
 
 export const trash = async ({ user, params: { id } }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
-  currentUser.removed.includes(id) ? currentUser.removed.remove(id) : currentUser.removed.push(id)
+  currentUser.removed.includes(id) ? currentUser.removed.remove(id) : currentUser.removed.push(id);
 
   const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
 
@@ -116,7 +129,7 @@ export const trash = async ({ user, params: { id } }) => {
 };
 
 export const getFavorites = async ({ user }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
   const result = await Signal.find({ _id: { $in: currentUser.favorites } });
 
@@ -128,12 +141,13 @@ export const getFavorites = async ({ user }) => {
 };
 
 export const archive = async ({ user, params: { id } }) => updateList({ user, id, archived: true });
-export const unarchive = async ({ user, params: { id } }) => updateList({ user, id, archived: false });
+export const unarchive = async ({ user, params: { id } }) =>
+  updateList({ user, id, archived: false });
 
 export const deleteForever = async ({ user, params: { id } }) => {
-  const currentUser = await User.findById(user._id)
+  const currentUser = await User.findById(user._id);
 
-  currentUser.deleted.push(id)
+  currentUser.deleted.push(id);
 
   const result = await User.findByIdAndUpdate(currentUser._id, currentUser);
 

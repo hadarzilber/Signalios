@@ -13,10 +13,7 @@ export default props => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        console.log('fetch resources');
         const data = await getAllResources();
-
-        console.log(`data ${data}`);
         setResources(data);
       } catch (error) {
         open({ message: error });

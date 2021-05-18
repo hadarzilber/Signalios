@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, Typography, Paper, Avatar, Tooltip } from '@material-ui/core';
-import { AvatarGroup } from '@material-ui/lab';
+import { Typography, Dialog, Paper } from '@material-ui/core';
 import { Column, Row } from 'mui-flex-layout';
-import Moment from 'react-moment';
 import styled from 'styled-components';
-import { Scrollbars } from 'react-custom-scrollbars';
-
-import useSignalApi from '../../hooks/api/signal.hook';
 import { useAlert } from '../../Providers/AlertProvider';
 import { useSignal } from '../../Providers/SignalProvider';
+import { ContactSupportOutlined } from '@material-ui/icons';
 // import { useAuth } from '../../Providers/AuthProvider';
 
 const DialogPaper = styled(Paper)`
@@ -28,30 +24,27 @@ const Header = styled(Row)`
   }) => main};
 `;
 
-export default ({ opened, id, handleClose }) => {
-  const [signal, setSignal] = useState();
+export default ({ opened, getHistoryParams, handleClose }) => {
+  const [pairNameHistory, setPairNameHistory] = useState([]);
   // const { user } = useAuth();
-  const { getSignal } = useSignal();
+  const { handleGetPairNameHistory } = useSignal();
   const { open } = useAlert();
-  // TODO: update signal
-  // const { handleUpdate, handleShare } = useSignal();
-
-  const signalStateChanged = data => {
-    setSignal(data);
-  };
 
   useEffect(() => {
-    const fetchList = async () => {
+    const fetchPairNameHistory = async () => {
       try {
-        const data = await getSignal({ id });
+        const data = await handleGetPairNameHistory({
+          pairName: getHistoryParams.pairName,
+          channelName: getHistoryParams.channelName
+        });
 
-        setSignal(data);
+        setPairNameHistory(data);
       } catch (error) {
         open({ message: error });
       }
     };
 
-    fetchList();
+    fetchPairNameHistory();
   }, []);
 
   return (
@@ -64,7 +57,7 @@ export default ({ opened, id, handleClose }) => {
         fullWidth
         keepMounted
       >
-        <Column height={'100%'} width={'100%'}>
+        <Column>
           <Header
             width={'100%'}
             p={1}
@@ -72,8 +65,24 @@ export default ({ opened, id, handleClose }) => {
             alignItems={'center'}
             justifyContent={'space-between'}
           >
-            <Typography variant={'h4'}>{signal.name}</Typography>
+            {'Pair name history'}
           </Header>
+          <Column height={'100%'} width={'100%'}>
+            {pairNameHistory &&
+              pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, succeeded }) => (
+                <Row>
+                  <Column>
+                    <Typography variant={'caption'} color={'textSecondary'}>
+                      <span> {entryPrice}$ </span>
+                    </Typography>
+
+                    <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
+                    <span> take profit:{takeProfit}$ </span>
+                  </Column>
+                  <span>{'todo: succeeded'}</span>
+                </Row>
+              ))}
+          </Column>
         </Column>
       </Dialog>
     </>

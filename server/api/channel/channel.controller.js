@@ -8,7 +8,6 @@ import createError from 'http-errors';
 
 export const index = async () => {
   const result = await Channel.find();
-  console.log(`resulttttt ${result}`);
 
   if (!result) {
     throw createError(404);

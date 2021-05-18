@@ -17,7 +17,9 @@ export default props => {
     removeSignal,
     favoriteSignal,
     share,
-    updateSignal
+    updateSignal,
+    // getSignal,
+    getPairNameHistory
   } = useSignalApi();
 
   useEffect(() => {
@@ -126,6 +128,28 @@ export default props => {
     }
   };
 
+  // const handleGetSignal = async ({ id }) => {
+  //   try {
+  //     console.log('handle get signal', id);
+  //     const data = await getSignal({ id });
+
+  //     return data;
+  //   } catch (error) {
+  //     open({ message: error });
+  //   }
+  // };
+
+  const handleGetPairNameHistory = async ({ pairName, channelName }) => {
+    console.log(`got to handle with ${pairName}, ${channelName}`);
+    try {
+      const data = await getPairNameHistory({ pairName, channelName });
+
+      return data;
+    } catch (error) {
+      open({ message: error });
+    }
+  };
+
   const { children } = props;
 
   return (
@@ -139,7 +163,9 @@ export default props => {
         handleArchive,
         handleUnarchive,
         handleFavorite,
-        handleUpdate
+        handleUpdate,
+        // handleGetSignal,
+        handleGetPairNameHistory
       }}
       {...props}
     >

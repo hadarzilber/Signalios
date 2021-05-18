@@ -1,9 +1,9 @@
 import React from 'react';
+import Moment from 'moment';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'mui-flex-layout';
 import { Typography, Card, Chip, LinearProgress, IconButton } from '@material-ui/core';
-import Moment from 'react-moment';
 import { Delete, Star } from '@material-ui/icons';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -13,21 +13,25 @@ import { useChannel } from '../../../Providers/ChannelProvider';
 const ListName = styled(Typography)`
   font-weight: bold;
 `;
+const ArrowDownIcon = styled(ArrowDownwardIcon)`
+  color: ${props => (props.isUp ? 'grey' : 'red')};
+`;
+
+const ArrowUpIcon = styled(ArrowUpwardIcon)`
+  color: ${props => (props.isUp ? 'green' : 'grey')};
+`;
 
 export default ({
-  list: { _id: id, pairName, entryPrice, stopLoss, takeProfit, channelName },
-  isUp
+  handleOpen,
+  list: { _id: id, pairName, entryPrice, stopLoss, takeProfit, channelName, date }
 }) => {
-  const ArrowDownIcon = styled(ArrowDownwardIcon)`
-    color: ${isUp ? 'red' : 'grey'};
-  `;
-
-  const ArrowUpIcon = styled(ArrowUpwardIcon)`
-    color: ${isUp ? 'grey' : 'green'};
-  `;
-
   const { handleFavorite, handleRemove } = useSignal();
   const { channels } = useChannel();
+  const [isUp, setIsUp] = useState(false);
+
+  setInterval(() => {
+    setIsUp(Math.random() < 0.5);
+  }, 10000);
 
   const Template = styled(Card)`
     width: 100%;
@@ -49,10 +53,26 @@ export default ({
   return (
     <Row width={'22%'} m={2}>
       <Column width={'100%'} height={'100%'}>
-        <Template variant={'outlined'}>
+        <Template
+          variant={'outlined'}
+          onClick={() =>
+            handleOpen({
+              id,
+              pairName,
+              entryPrice,
+              stopLoss,
+              takeProfit,
+              channelName,
+              date
+            })
+          }
+        >
           <Column p={2} height={'100%'} justifyContent={'space-between'} alignItems={'center'}>
             <Column justifyContent={'center'} alignItems={'center'}>
               <ListName variant={'h5'}>{pairName}</ListName>
+              <Typography variant={'caption'} color={'textSecondary'}>
+                {/* <span> {Moment(date).calendar()} </span> */}
+              </Typography>
               <Typography variant={'caption'} color={'textSecondary'}>
                 <span> {entryPrice}$ </span>
               </Typography>
@@ -70,8 +90,8 @@ export default ({
                 </IconButton>
                 {pairName === 'ETH/USDT' ? (
                   <>
-                    <ArrowUpIcon />
-                    <ArrowDownIcon />
+                    <ArrowUpIcon isUp={isUp} />
+                    <ArrowDownIcon isUp={isUp} />
                   </>
                 ) : (
                   ''
