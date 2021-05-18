@@ -47,7 +47,7 @@ const ModalContent = styled(Column)`
 export default () => {
   const [filter, setfilter] = useState('');
   const [open, setOpen] = useState(false)
-  const [channelsToDisplay, setChannelsToDisplay] = useState([])  
+  const [channelsToDisplay, setChannelsToDisplay] = useState([])
 
   return (
     <Row width={'100%'} height={'100%'}>
@@ -72,15 +72,14 @@ export default () => {
             <Suggested />
           </Row>
           <Row width={'100%'}>
-            <Button size={'large'} onClick={() => setOpen(!open)}>{'ערוצים'}</Button>
+            <Button size={'large'} onClick={() => setOpen(!open)}>{'Channels'}</Button>
           </Row>
           <Row width={'80%'} height={'100%'}>
-            <Lists filter={filter} />
+            <Lists filter={filter} channels={channelsToDisplay} />
           </Row>
         </Column>
       </Scrollbars>
-      {/* <ChannelsModal open={open} setOpen={setOpen} setChannelsToDisplay={setChannelsToDisplay}>
-      </ChannelsModal> */}
+      <ChannelsModal open={open} setOpen={setOpen} setChannelsToDisplay={setChannelsToDisplay} />
     </Row>
   );
 };

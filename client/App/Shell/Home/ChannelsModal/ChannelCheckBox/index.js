@@ -1,6 +1,12 @@
 import React from 'react';
 import {  Row } from 'mui-flex-layout';
 import { Checkbox, Typography } from '@material-ui/core';
+import styled from 'styled-components'
+
+const StyledBox = styled(Row)`
+    display: flex;
+    align-items: center;
+`;
 
 export default ({ channel, selected,handleChange }) => {
 
@@ -9,9 +15,9 @@ export default ({ channel, selected,handleChange }) => {
     }
 
     return (
-        <Row>
+        <StyledBox>
             <Checkbox checked={selected} color="primary" onChange={onChange} />
             <Typography>{channel.name}</Typography>
-        </Row>
+        </StyledBox>
     );
 };

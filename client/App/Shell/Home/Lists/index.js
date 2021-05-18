@@ -11,7 +11,7 @@ const Bold = styled(Typography)`
   font-weight: 600;
 `;
 
-export default ({ filter }) => {
+export default ({ filter, channels }) => {
   const { signals } = useSignal();
   const [opened, setOpened] = useState(false);
   const [openedSignal, setOpenedSignal] = useState(null);
@@ -27,12 +27,21 @@ export default ({ filter }) => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     filter.length !== 0
       ? setFilteredSignals(
           signals.filter(x => x.pairName.toLowerCase().startsWith(filter.toLowerCase())).reverse()
         )
       : setFilteredSignals(signals.reverse());
   }, [filter]);
+=======
+    const filteredSignals = filter.length !== 0 ?
+      signals.filter(x => x.name.toLowerCase().startsWith(filter.toLowerCase())) : signals;
+    const filteredWithChannels = signals.filter(signal => channels.some(channel => signal.channelName === channel.name))
+
+    setFilteredSignals(filteredWithChannels)
+  }, [filter, channels]);
+>>>>>>> feat(channels-filter): added filter channels modal
 
   useEffect(() => {
     setFilteredSignals(signals);
