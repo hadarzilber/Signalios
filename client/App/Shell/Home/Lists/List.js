@@ -21,6 +21,13 @@ const ArrowUpIcon = styled(ArrowUpwardIcon)`
   color: ${props => (props.isUp ? 'green' : 'grey')};
 `;
 
+const Template = styled(Card)`
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
 export default ({
   handleOpen,
   list: { _id: id, pairName, entryPrice, stopLoss, takeProfit, channelName, date }
@@ -32,13 +39,6 @@ export default ({
   setInterval(() => {
     setIsUp(Math.random() < 0.5);
   }, 10000);
-
-  const Template = styled(Card)`
-    width: 100%;
-    height: 200px;
-    border-radius: 8px;
-    cursor: pointer;
-  `;
 
   const handleFavoriteClick = async () => {
     await handleFavorite({ id });

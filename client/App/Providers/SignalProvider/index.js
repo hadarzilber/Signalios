@@ -140,7 +140,6 @@ export default props => {
   // };
 
   const handleGetPairNameHistory = async ({ pairName, channelName }) => {
-    console.log(`got to handle with ${pairName}, ${channelName}`);
     try {
       const data = await getPairNameHistory({ pairName, channelName });
 

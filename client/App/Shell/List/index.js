@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Dialog, Paper } from '@material-ui/core';
+import { Typography, Dialog, Paper, Card, Divider } from '@material-ui/core';
 import { Column, Row } from 'mui-flex-layout';
 import styled from 'styled-components';
 import { useAlert } from '../../Providers/AlertProvider';
@@ -22,6 +22,21 @@ const Header = styled(Row)`
       }
     }
   }) => main};
+`;
+
+const HistoryCard = styled(Card)`
+  max-width: 500px;
+  min-height: 80px;
+  margin: 5px;
+  padding: 5px;
+`;
+
+const CardsScrollableColumn = styled(Column)`
+  overflow-y: scroll;
+`;
+
+const Roww = styled(Row)`
+  justify-content: space-evenly;
 `;
 
 export default ({ opened, getHistoryParams, handleClose }) => {
@@ -53,11 +68,12 @@ export default ({ opened, getHistoryParams, handleClose }) => {
         PaperComponent={DialogPaper}
         open={opened}
         onClose={handleClose}
-        maxWidth={'md'}
+        maxWidth={'sm'}
         fullWidth
         keepMounted
+        overflow={'hidden'}
       >
-        <Column>
+        <Column overflow={'hidden'}>
           <Header
             width={'100%'}
             p={1}
@@ -65,24 +81,26 @@ export default ({ opened, getHistoryParams, handleClose }) => {
             alignItems={'center'}
             justifyContent={'space-between'}
           >
-            {'Pair name history'}
+            {`${getHistoryParams.pairName} histroy in ${getHistoryParams.channelName}`}
           </Header>
-          <Column height={'100%'} width={'100%'}>
+          <CardsScrollableColumn height={'100%'} width={'100%'}>
             {pairNameHistory &&
               pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, succeeded }) => (
-                <Row>
-                  <Column>
-                    <Typography variant={'caption'} color={'textSecondary'}>
-                      <span> {entryPrice}$ </span>
-                    </Typography>
-
-                    <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
-                    <span> take profit:{takeProfit}$ </span>
-                  </Column>
-                  <span>{'todo: succeeded'}</span>
-                </Row>
+                <HistoryCard justifyContent={'center'}>
+                  <Roww>
+                    <Column>
+                      <Typography variant={'caption'} color={'textSecondary'}>
+                        <span> {entryPrice}$ </span>
+                      </Typography>
+                      <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
+                      <span> take profit:{takeProfit}$ </span>
+                    </Column>
+                    <Divider orientation="vertical" flexItem />
+                    <span>{'todo: succeeded'}</span>
+                  </Roww>
+                </HistoryCard>
               ))}
-          </Column>
+          </CardsScrollableColumn>
         </Column>
       </Dialog>
     </>

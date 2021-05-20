@@ -35,10 +35,7 @@ export const getRemoved = async ({ user }) => {
 };
 
 export const getPairNameHistory = async ({ user, body }, res) => {
-  console.log(`got to server with ${body.pairName} ${body.channelName}`);
   const allSignalsWithPairName = await Signal.find({ pairName: body.pairName });
-
-  console.log(`allSignalsWithPairName ${[allSignalsWithPairName]}`);
   const result = allSignalsWithPairName.filter(x => x.channelName === body.channelName);
 
   if (!result) {

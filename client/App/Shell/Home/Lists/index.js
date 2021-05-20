@@ -17,7 +17,6 @@ export default ({ filter }) => {
   const [openedSignal, setOpenedSignal] = useState(null);
   const [filteredSignals, setFilteredSignals] = useState([]);
   const openList = ({ signal }) => {
-    console.log(`OPENED ${signal ? signal.pairName : 'not yet!'}`);
     setOpened(true);
     setOpenedSignal(signal);
   };
