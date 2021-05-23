@@ -56,7 +56,7 @@ export default () => {
                   fullWidth
                   variant={'outlined'}
                   type={'text'}
-                  placeholder={'Search signals, bots...'}
+                  placeholder={'Search signals...'}
                   name={`search`}
                   onChange={event => setfilter(event.target.value)}
                 />

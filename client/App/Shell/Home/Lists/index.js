@@ -46,13 +46,6 @@ export default ({ filter }) => {
 
   return (
     <Column height={'100%'} width={'100%'} justifyContent={'center'} alignItems={'center'}>
-      {signals.length ? (
-        <div>
-          <Bold color={'textSecondary'} variant={'caption'}>
-            {'My Signals'}
-          </Bold>
-        </div>
-      ) : null}
       <Row
         height={'100%'}
         width={'100%'}
