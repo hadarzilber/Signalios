@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useAlert } from '../../Providers/AlertProvider';
 import { useSignal } from '../../Providers/SignalProvider';
 import { ContactSupportOutlined } from '@material-ui/icons';
+import moment from 'moment';
 // import { useAuth } from '../../Providers/AuthProvider';
 
 const DialogPaper = styled(Paper)`
@@ -93,15 +94,18 @@ export default ({ opened, getHistoryParams, handleClose }) => {
           </Header>
           <CardsScrollableColumn height={'100%'} width={'100%'}>
             {pairNameHistory &&
-              pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, isSuccessful }) => (
+              pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, isSuccessful, date }) => (
                 <HistoryCard justifyContent={'center'}>
                   <Roww>
                     <Column>
                       <Typography variant={'caption'} color={'textSecondary'}>
                         <span> {entryPrice}$ </span>
                       </Typography>
-                      <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
-                      <span> take profit:{takeProfit}$ </span>
+                      <Typography variant={'caption'} color={'textSecondary'}>
+                        <span>{moment(date).format('DD-MM-YY hh:mm:ss')}</span>
+                      </Typography>
+                      <span> stop loss: {stopLoss.split(' ')[0]}$ </span>
+                      <span> take profit: {takeProfit}$ </span>
                     </Column>
                     <Divider orientation="vertical" flexItem />
                     {isSuccessful && (

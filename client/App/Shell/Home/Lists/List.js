@@ -1,9 +1,9 @@
 import React from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'mui-flex-layout';
-import { Typography, Card, Chip, LinearProgress, IconButton } from '@material-ui/core';
+import { Typography, Card, Chip, LinearProgress, IconButton, Avatar } from '@material-ui/core';
 import { Delete, Star } from '@material-ui/icons';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -15,17 +15,27 @@ const ListName = styled(Typography)`
 `;
 const ArrowDownIcon = styled(ArrowDownwardIcon)`
   color: ${props => (props.isUp ? 'grey' : 'red')};
+  margin-top: 10px;
 `;
 
 const ArrowUpIcon = styled(ArrowUpwardIcon)`
   color: ${props => (props.isUp ? 'green' : 'grey')};
+  margin-top: 10px;
 `;
 
 const Template = styled(Card)`
   width: 100%;
-  height: 200px;
+  height: 210px;
   border-radius: 8px;
   cursor: pointer;
+`;
+
+const ChannelRate = styled(Avatar)`
+  background-color: #4caf50;
+  height: 23px;
+  width: 23px;
+  font-size: xx-small;
+  margin-left: 5px;
 `;
 
 export default ({
@@ -71,16 +81,24 @@ export default ({
             <Column justifyContent={'center'} alignItems={'center'}>
               <ListName variant={'h5'}>{pairName}</ListName>
               <Typography variant={'caption'} color={'textSecondary'}>
-                {/* <span> {Moment(date).calendar()} </span> */}
+                <span> {moment(date).format('DD-MM-YY hh:mm:ss')} </span>
               </Typography>
-              <Typography variant={'caption'} color={'textSecondary'}>
+              <Row>
+                <Typography variant={'caption'} color={'textSecondary'}>
+                  {`by ${channelName}`}
+                </Typography>
+                <ChannelRate>{`${getChannelRate(channelName)}%`}</ChannelRate>
+              </Row>
+              <Typography variant={'h6'} color={'textPrimary'}>
                 <span> {entryPrice}$ </span>
               </Typography>
+              <Typography variant={'caption'} color={'textPrimary'}>
+                <span> stop loss: {stopLoss.split(' ')[0]}$ </span>
+              </Typography>
 
-              <span> stop loss:{stopLoss.split(' ')[0]}$ </span>
-              <span> take profit:{takeProfit}$ </span>
-              <span> channel:{channelName} </span>
-              <span> {getChannelRate(channelName)}% rate</span>
+              <Typography variant={'caption'} color={'textPrimary'}>
+                <span> take profit: {takeProfit}$ </span>
+              </Typography>
               <Row>
                 <IconButton>
                   <Star onClick={handleFavoriteClick} />
