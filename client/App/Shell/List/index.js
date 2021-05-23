@@ -39,6 +39,14 @@ const Roww = styled(Row)`
   justify-content: space-evenly;
 `;
 
+const SucceededTypography = styled(Typography)`
+  color: green;
+`;
+
+const FailedTypography = styled(Typography)`
+  color: red;
+`;
+
 export default ({ opened, getHistoryParams, handleClose }) => {
   const [pairNameHistory, setPairNameHistory] = useState([]);
   // const { user } = useAuth();
@@ -85,7 +93,7 @@ export default ({ opened, getHistoryParams, handleClose }) => {
           </Header>
           <CardsScrollableColumn height={'100%'} width={'100%'}>
             {pairNameHistory &&
-              pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, succeeded }) => (
+              pairNameHistory.map(({ entryPrice, stopLoss, takeProfit, isSuccessful }) => (
                 <HistoryCard justifyContent={'center'}>
                   <Roww>
                     <Column>
@@ -96,7 +104,12 @@ export default ({ opened, getHistoryParams, handleClose }) => {
                       <span> take profit:{takeProfit}$ </span>
                     </Column>
                     <Divider orientation="vertical" flexItem />
-                    <span>{'todo: succeeded'}</span>
+                    {isSuccessful && (
+                      <SucceededTypography variant={'subtitle1'}>Succeeded</SucceededTypography>
+                    )}
+                    {!isSuccessful && (
+                      <FailedTypography variant={'subtitle1'}>Failed</FailedTypography>
+                    )}
                   </Roww>
                 </HistoryCard>
               ))}
