@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Column, Row } from 'mui-flex-layout';
 import { Button, Typography } from '@material-ui/core';
 import { BorderStyle, Explore } from '@material-ui/icons';
-
 import { useShell } from '../../ShellProvider';
 import { useAuth } from '../../../Providers/AuthProvider';
 import UserAvatar from '../../../components/UserAvatar';
@@ -69,9 +68,6 @@ export default () => {
       </Row>
       <Row width={'35%'} />
       <Row width={'5%'} />
-      <InsetRow>
-        <CreateListButton />
-      </InsetRow>
     </SecondaryToolbar>
   );
 };

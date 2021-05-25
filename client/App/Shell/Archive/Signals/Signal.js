@@ -14,6 +14,10 @@ const Template = styled(Card)`
   border-radius: 8px;
 `;
 
+const Starr = styled(Star)`
+  color: yellow;
+`;
+
 export default ({ signal, handleFavoriteClick, handleRemoveItem }) => {
   return (
     <Row width={'22%'} m={2}>
@@ -21,16 +25,16 @@ export default ({ signal, handleFavoriteClick, handleRemoveItem }) => {
         <Template variant={'outlined'}>
           <Column p={2} height={'100%'} justifyContent={'space-around'} alignItems={'center'}>
             <Column justifyContent={'center'} alignItems={'center'}>
-              <SignalName variant={'h5'}>{signal.name}</SignalName>
+              <SignalName variant={'h5'}>{signal.pairName}</SignalName>
             </Column>
             <Column>
-              <Typography>{`Entry price: ${signal.entryPrice}`}</Typography>
-              <Typography>{`Take profit: ${signal.takeProfit}`}</Typography>
-              <Typography>{`Stop loss: ${signal.stopLoss}`}</Typography>
+              <Typography>{`Entry price: ${signal.entryPrice}$`}</Typography>
+              <Typography>{`Take profit: ${signal.takeProfit}$`}</Typography>
+              <Typography>{`Stop loss: ${signal.stopLoss}$`}</Typography>
             </Column>
             <Row>
               <IconButton>
-                <Star onClick={() => handleFavoriteClick(signal._id)} />
+                <Starr onClick={() => handleFavoriteClick(signal._id)} />
               </IconButton>
               <IconButton>
                 <Delete onClick={() => handleRemoveItem(signal._id)} />

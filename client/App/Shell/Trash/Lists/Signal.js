@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { Column, Row } from 'mui-flex-layout';
 import { Typography, Card, IconButton, Tooltip } from '@material-ui/core';
 import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/icons';
@@ -21,7 +22,15 @@ export default ({ signal, deleteForever, restore }) => {
         <Template variant={'outlined'}>
           <Column p={2} height={'100%'} justifyContent={'space-between'} alignItems={'center'}>
             <Column justifyContent={'center'} alignItems={'center'}>
-              <SignalName variant={'h5'}>{signal.name}</SignalName>
+              <SignalName variant={'h5'}>{signal.pairName}</SignalName>
+              <Typography variant={'caption'} color={'textSecondary'}>
+                <span> {signal.entryPrice}$ </span>
+              </Typography>
+              <Typography variant={'caption'} color={'textSecondary'}>
+                <span>{moment(signal.date).format('DD-MM-YY hh:mm:ss')}</span>
+              </Typography>
+              <span> stop loss: {signal.stopLoss.split(' ')[0]}$ </span>
+              <span> take profit: {signal.takeProfit}$ </span>
             </Column>
             <Row
               alignItems={'center'}

@@ -108,10 +108,9 @@ export default ({ opened, getHistoryParams, handleClose }) => {
                       <span> take profit: {takeProfit}$ </span>
                     </Column>
                     <Divider orientation="vertical" flexItem />
-                    {isSuccessful && (
+                    {isSuccessful ? (
                       <SucceededTypography variant={'subtitle1'}>Succeeded</SucceededTypography>
-                    )}
-                    {!isSuccessful && (
+                    ) : (
                       <FailedTypography variant={'subtitle1'}>Failed</FailedTypography>
                     )}
                   </Roww>

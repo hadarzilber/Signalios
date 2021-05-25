@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Row, Column } from 'mui-flex-layout';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import readXlsxFile from 'read-excel-file';
 import { useSignal } from '../../../Providers/SignalProvider';
 import ListDialog from '../../List';
 import List from './List';
@@ -27,21 +26,22 @@ export default ({ filter, channels }) => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
-    filter.length !== 0
-      ? setFilteredSignals(
-          signals.filter(x => x.pairName.toLowerCase().startsWith(filter.toLowerCase())).reverse()
-        )
-      : setFilteredSignals(signals.reverse());
-  }, [filter]);
-=======
-    const filteredSignals = filter.length !== 0 ?
-      signals.filter(x => x.name.toLowerCase().startsWith(filter.toLowerCase())) : signals;
-    const filteredWithChannels = signals.filter(signal => channels.some(channel => signal.channelName === channel.name))
+    const filteredSignals =
+      filter.length !== 0
+        ? signals.filter(x => x.pairName.toLowerCase().startsWith(filter.toLowerCase()))
+        : signals;
+    const filteredWithChannels = filteredSignals.filter(signal =>
+      channels.some(channel => signal.channelName === channel.name)
+    );
 
-    setFilteredSignals(filteredWithChannels)
+    let filteredNew = [];
+
+    filteredWithChannels
+      .reverse()
+      .forEach(x => (!filteredNew.some(y => y.pairName === x.pairName) ? filteredNew.push(x) : ''));
+
+    setFilteredSignals(filteredNew);
   }, [filter, channels]);
->>>>>>> feat(channels-filter): added filter channels modal
 
   useEffect(() => {
     setFilteredSignals(signals);

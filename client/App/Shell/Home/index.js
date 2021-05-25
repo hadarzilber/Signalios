@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Column, Row } from 'mui-flex-layout';
-import { TextField, Card, Button, Modal } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { TextField, Card, Button, Modal, IconButton } from '@material-ui/core';
+import { FilterList, Search } from '@material-ui/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
-import createError from 'http-errors';
-import readXlsxFile from 'read-excel-file';
 import styled from 'styled-components';
 import Lists from './Lists';
 import Suggested from './Suggested';
@@ -44,6 +42,21 @@ const ModalContent = styled(Column)`
   background-color: white !important;
 `;
 
+const StyledIconButton = styled(IconButton)({
+  position: 'fixed',
+  left: '0',
+  bottom: '0',
+  marginLeft: '10px',
+  marginBottom: '10px',
+  width: '60px',
+  height: '60px',
+  backgroundColor: '#9696bb !important'
+})
+const StyledFilter = styled(FilterList)({
+  width: '40px',
+  height: '40px'
+})
+
 export default () => {
   const [filter, setfilter] = useState('');
   const [open, setOpen] = useState(false)
@@ -71,14 +84,14 @@ export default () => {
           <Row width={'100%'}>
             <Suggested />
           </Row>
-          <Row width={'100%'}>
-            <Button size={'large'} onClick={() => setOpen(!open)}>{'Channels'}</Button>
-          </Row>
           <Row width={'80%'} height={'100%'}>
             <Lists filter={filter} channels={channelsToDisplay} />
           </Row>
         </Column>
       </Scrollbars>
+      <StyledIconButton onClick={() => setOpen(!open)}>
+        <StyledFilter />
+      </StyledIconButton>
       <ChannelsModal open={open} setOpen={setOpen} setChannelsToDisplay={setChannelsToDisplay} />
     </Row>
   );
